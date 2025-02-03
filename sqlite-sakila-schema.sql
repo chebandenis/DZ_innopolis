@@ -6,9 +6,6 @@ CREATE TABLE actor (
   PRIMARY KEY  (actor_id)
   )
   ;
---
-
-
 
 CREATE TABLE country (
   country_id SMALLINT NOT NULL,
@@ -17,9 +14,6 @@ CREATE TABLE country (
   PRIMARY KEY  (country_id)
 )
 ;
-
-
---
 
 CREATE TABLE city (
   city_id int NOT NULL,
@@ -30,11 +24,6 @@ CREATE TABLE city (
   CONSTRAINT fk_city_country FOREIGN KEY (country_id) REFERENCES country (country_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
-
-
 
 CREATE TABLE address (
   address_id int NOT NULL,
@@ -49,9 +38,6 @@ CREATE TABLE address (
   CONSTRAINT fk_address_city FOREIGN KEY (city_id) REFERENCES city (city_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
 
 CREATE TABLE language (
   language_id SMALLINT NOT NULL ,
@@ -60,8 +46,6 @@ CREATE TABLE language (
   PRIMARY KEY (language_id)
 )
 ;
---
-
 
 CREATE TABLE category (
   category_id SMALLINT NOT NULL,
@@ -69,7 +53,6 @@ CREATE TABLE category (
   last_update TIMESTAMP NOT NULL,
   PRIMARY KEY  (category_id)
 );
---
 
 CREATE TABLE film_text (
   film_id SMALLINT NOT NULL,
@@ -79,7 +62,6 @@ CREATE TABLE film_text (
 )
 ;
 
---
 CREATE TABLE film (
   film_id int NOT NULL,
   title VARCHAR(255) NOT NULL,
@@ -105,7 +87,7 @@ CREATE TABLE film (
   CONSTRAINT fk_film_language_original FOREIGN KEY (original_language_id) REFERENCES language (language_id)
 )
 ;
---
+
 CREATE TABLE store (
   store_id INT NOT NULL,
   manager_staff_id SMALLINT NOT NULL,
@@ -116,7 +98,6 @@ CREATE TABLE store (
   CONSTRAINT fk_store_address FOREIGN KEY (address_id) REFERENCES address (address_id)
 )
 ;
---
 
 CREATE TABLE staff (
   staff_id SMALLINT NOT NULL,
@@ -135,9 +116,6 @@ CREATE TABLE staff (
   CONSTRAINT fk_staff_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
 
 CREATE TABLE customer (
   customer_id INT NOT NULL,
@@ -154,8 +132,6 @@ CREATE TABLE customer (
   CONSTRAINT fk_customer_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
 
 CREATE TABLE film_actor (
   actor_id INT NOT NULL,
@@ -166,9 +142,6 @@ CREATE TABLE film_actor (
   CONSTRAINT fk_film_actor_film FOREIGN KEY (film_id) REFERENCES film (film_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
 
 CREATE TABLE film_category (
   film_id INT NOT NULL,
@@ -179,10 +152,6 @@ CREATE TABLE film_category (
   CONSTRAINT fk_film_category_category FOREIGN KEY (category_id) REFERENCES category (category_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
-
 
 CREATE TABLE inventory (
   inventory_id INT NOT NULL,
@@ -194,12 +163,6 @@ CREATE TABLE inventory (
   CONSTRAINT fk_inventory_film FOREIGN KEY (film_id) REFERENCES film (film_id) ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ;
---
-
-
-
-
-
 
 CREATE TABLE rental (
   rental_id INT NOT NULL,
@@ -215,9 +178,6 @@ CREATE TABLE rental (
   CONSTRAINT fk_rental_customer FOREIGN KEY (customer_id) REFERENCES customer (customer_id)
 )
 ;
---
-
-
 
 CREATE TABLE payment (
   payment_id int NOT NULL,
@@ -233,7 +193,7 @@ CREATE TABLE payment (
   CONSTRAINT fk_payment_staff FOREIGN KEY (staff_id) REFERENCES staff (staff_id)
 )
 ;
---
+
 
 
 
