@@ -7,21 +7,8 @@ CREATE TABLE actor (
   )
   ;
 --
-CREATE  INDEX idx_actor_last_name ON actor(last_name)
-;
---
-CREATE TRIGGER actor_trigger_ai AFTER INSERT ON actor
- BEGIN 
-  UPDATE actor SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER actor_trigger_au AFTER UPDATE ON actor
- BEGIN
-  UPDATE actor SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
+
+
 
 CREATE TABLE country (
   country_id SMALLINT NOT NULL,
@@ -30,18 +17,7 @@ CREATE TABLE country (
   PRIMARY KEY  (country_id)
 )
 ;
---
-CREATE TRIGGER country_trigger_ai AFTER INSERT ON country
- BEGIN
-  UPDATE country SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
--- 
-CREATE TRIGGER country_trigger_au AFTER UPDATE ON country
- BEGIN
-  UPDATE country SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
+
 
 --
 
@@ -55,22 +31,10 @@ CREATE TABLE city (
 )
 ;
 --
-CREATE  INDEX idx_fk_country_id ON city(country_id)
-;
---
-CREATE TRIGGER city_trigger_ai AFTER INSERT ON city
- BEGIN
-  UPDATE city SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER city_trigger_au AFTER UPDATE ON city
- BEGIN
-  UPDATE city SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
+
+
+
 
 CREATE TABLE address (
   address_id int NOT NULL,
@@ -86,22 +50,8 @@ CREATE TABLE address (
 )
 ;
 --
-CREATE  INDEX idx_fk_city_id ON address(city_id)
-;
---
-CREATE TRIGGER address_trigger_ai AFTER INSERT ON address
- BEGIN
-  UPDATE address SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
--- 
-CREATE TRIGGER address_trigger_au AFTER UPDATE ON address
- BEGIN
-  UPDATE address SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
+
 
 CREATE TABLE language (
   language_id SMALLINT NOT NULL ,
@@ -111,19 +61,7 @@ CREATE TABLE language (
 )
 ;
 --
-CREATE TRIGGER language_trigger_ai AFTER INSERT ON language
- BEGIN
-  UPDATE language SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
--- 
-CREATE TRIGGER language_trigger_au AFTER UPDATE ON language
- BEGIN
-  UPDATE language SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
 
 CREATE TABLE category (
   category_id SMALLINT NOT NULL,
@@ -132,18 +70,7 @@ CREATE TABLE category (
   PRIMARY KEY  (category_id)
 );
 --
-CREATE TRIGGER category_trigger_ai AFTER INSERT ON category
- BEGIN
-  UPDATE category SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
--- 
-CREATE TRIGGER category_trigger_au AFTER UPDATE ON category
- BEGIN
-  UPDATE category SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
+
 CREATE TABLE film_text (
   film_id SMALLINT NOT NULL,
   title VARCHAR(255) NOT NULL,
@@ -190,25 +117,7 @@ CREATE TABLE store (
 )
 ;
 --
-CREATE  INDEX idx_store_fk_manager_staff_id ON store(manager_staff_id)
-;
---
-CREATE  INDEX idx_fk_store_address ON store(address_id)
-;
---
-CREATE TRIGGER store_trigger_ai AFTER INSERT ON store
- BEGIN
-  UPDATE store SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER store_trigger_au AFTER UPDATE ON store
- BEGIN
-  UPDATE store SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
 CREATE TABLE staff (
   staff_id SMALLINT NOT NULL,
   first_name VARCHAR(45) NOT NULL,
@@ -227,25 +136,8 @@ CREATE TABLE staff (
 )
 ;
 --
-CREATE  INDEX idx_fk_staff_store_id ON staff(store_id)
-;
---
-CREATE  INDEX idx_fk_staff_address_id ON staff(address_id)
-;
---
-CREATE TRIGGER staff_trigger_ai AFTER INSERT ON staff
- BEGIN
-  UPDATE staff SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER staff_trigger_au AFTER UPDATE ON staff
- BEGIN
-  UPDATE staff SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
+
 
 CREATE TABLE customer (
   customer_id INT NOT NULL,
@@ -263,50 +155,7 @@ CREATE TABLE customer (
 )
 ;
 --
-CREATE  INDEX idx_customer_fk_store_id ON customer(store_id)
-;
---
-CREATE  INDEX idx_customer_fk_address_id ON customer(address_id)
-;
---
-CREATE  INDEX idx_customer_last_name ON customer(last_name)
-;
---
 
-CREATE TRIGGER customer_trigger_ai AFTER INSERT ON customer
- BEGIN
-  UPDATE customer SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER customer_trigger_au AFTER UPDATE ON customer
- BEGIN
-  UPDATE customer SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
-
---
-
-
-CREATE  INDEX idx_fk_language_id ON film(language_id)
-;
---
-CREATE  INDEX idx_fk_original_language_id ON film(original_language_id)
-;
---
-CREATE TRIGGER film_trigger_ai AFTER INSERT ON film
- BEGIN
-  UPDATE film SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER film_trigger_au AFTER UPDATE ON film
- BEGIN
-  UPDATE film SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
-
---
 
 CREATE TABLE film_actor (
   actor_id INT NOT NULL,
@@ -318,26 +167,8 @@ CREATE TABLE film_actor (
 )
 ;
 --
-CREATE  INDEX idx_fk_film_actor_film ON film_actor(film_id)
-;
---
-CREATE  INDEX idx_fk_film_actor_actor ON film_actor(actor_id) 
-;
---
-CREATE TRIGGER film_actor_trigger_ai AFTER INSERT ON film_actor
- BEGIN
-  UPDATE film_actor SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER film_actor_trigger_au AFTER UPDATE ON film_actor
- BEGIN
-  UPDATE film_actor SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
 
---
 
 CREATE TABLE film_category (
   film_id INT NOT NULL,
@@ -349,25 +180,7 @@ CREATE TABLE film_category (
 )
 ;
 --
-CREATE  INDEX idx_fk_film_category_film ON film_category(film_id)
-;
---
-CREATE  INDEX idx_fk_film_category_category ON film_category(category_id)
-;
---
-CREATE TRIGGER film_category_trigger_ai AFTER INSERT ON film_category
- BEGIN
-  UPDATE film_category SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER film_category_trigger_au AFTER UPDATE ON film_category
- BEGIN
-  UPDATE film_category SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
 
 
 
@@ -382,25 +195,8 @@ CREATE TABLE inventory (
 )
 ;
 --
-CREATE  INDEX idx_fk_film_id ON inventory(film_id)
-;
---
-CREATE  INDEX idx_fk_film_id_store_id ON inventory(store_id,film_id)
-;
---
-CREATE TRIGGER inventory_trigger_ai AFTER INSERT ON inventory
- BEGIN
-  UPDATE inventory SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER inventory_trigger_au AFTER UPDATE ON inventory
- BEGIN
-  UPDATE inventory SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
 
---
+
 
 
 
@@ -420,30 +216,8 @@ CREATE TABLE rental (
 )
 ;
 --
-CREATE INDEX idx_rental_fk_inventory_id ON rental(inventory_id)
-;
---
-CREATE INDEX idx_rental_fk_customer_id ON rental(customer_id)
-;
---
-CREATE INDEX idx_rental_fk_staff_id ON rental(staff_id)
-;
---
-CREATE UNIQUE INDEX   idx_rental_uq  ON rental (rental_date,inventory_id,customer_id)
-;
---
-CREATE TRIGGER rental_trigger_ai AFTER INSERT ON rental
- BEGIN
-  UPDATE rental SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER rental_trigger_au AFTER UPDATE ON rental
- BEGIN
-  UPDATE rental SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
+
+
 
 CREATE TABLE payment (
   payment_id int NOT NULL,
@@ -460,109 +234,7 @@ CREATE TABLE payment (
 )
 ;
 --
-CREATE  INDEX idx_fk_staff_id ON payment(staff_id)
-;
---
-CREATE  INDEX idx_fk_customer_id ON payment(customer_id)
-;
---
-
-CREATE TRIGGER payment_trigger_ai AFTER INSERT ON payment
- BEGIN
-  UPDATE payment SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
-CREATE TRIGGER payment_trigger_au AFTER UPDATE ON payment
- BEGIN
-  UPDATE payment SET last_update = DATETIME('NOW')  WHERE rowid = new.rowid;
- END
-;
---
 
 
-CREATE VIEW customer_list
-AS
-SELECT cu.customer_id AS ID,
-       cu.first_name||' '||cu.last_name AS name,
-       a.address AS address,
-       a.postal_code AS zip_code,
-       a.phone AS phone,
-       city.city AS city,
-       country.country AS country,
-       case when cu.active=1 then 'active' else '' end AS notes,
-       cu.store_id AS SID
-FROM customer AS cu JOIN address AS a ON cu.address_id = a.address_id JOIN city ON a.city_id = city.city_id
-    JOIN country ON city.country_id = country.country_id
-;
---
 
-CREATE VIEW film_list
-AS
-SELECT film.film_id AS FID,
-       film.title AS title,
-       film.description AS description,
-       category.name AS category,
-       film.rental_rate AS price,
-       film.length AS length,
-       film.rating AS rating,
-       actor.first_name||' '||actor.last_name AS actors
-FROM category LEFT JOIN film_category ON category.category_id = film_category.category_id LEFT JOIN film ON film_category.film_id = film.film_id
-        JOIN film_actor ON film.film_id = film_actor.film_id
-    JOIN actor ON film_actor.actor_id = actor.actor_id
-;
-
---
-
-CREATE VIEW staff_list
-AS
-SELECT s.staff_id AS ID,
-       s.first_name||' '||s.last_name AS name,
-       a.address AS address,
-       a.postal_code AS zip_code,
-       a.phone AS phone,
-       city.city AS city,
-       country.country AS country,
-       s.store_id AS SID
-FROM staff AS s JOIN address AS a ON s.address_id = a.address_id JOIN city ON a.city_id = city.city_id
-    JOIN country ON city.country_id = country.country_id
-;
---
-
-CREATE VIEW sales_by_store
-AS
-SELECT
-  s.store_id
- ,c.city||','||cy.country AS store
- ,m.first_name||' '||m.last_name AS manager
- ,SUM(p.amount) AS total_sales
-FROM payment AS p
-INNER JOIN rental AS r ON p.rental_id = r.rental_id
-INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id
-INNER JOIN store AS s ON i.store_id = s.store_id
-INNER JOIN address AS a ON s.address_id = a.address_id
-INNER JOIN city AS c ON a.city_id = c.city_id
-INNER JOIN country AS cy ON c.country_id = cy.country_id
-INNER JOIN staff AS m ON s.manager_staff_id = m.staff_id
-GROUP BY  
-  s.store_id
-, c.city||','||cy.country
-, m.first_name||' '||m.last_name
-;
-
---
-
-CREATE VIEW sales_by_film_category
-AS
-SELECT
-c.name AS category
-, SUM(p.amount) AS total_sales
-FROM payment AS p
-INNER JOIN rental AS r ON p.rental_id = r.rental_id
-INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id
-INNER JOIN film AS f ON i.film_id = f.film_id
-INNER JOIN film_category AS fc ON f.film_id = fc.film_id
-INNER JOIN category AS c ON fc.category_id = c.category_id
-GROUP BY c.name
-;
 
